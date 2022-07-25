@@ -8,7 +8,8 @@
   <b>blue wheel</b> - [-1 length snake] and [5 pkt] [-speed]<br />
   <b>red wheel</b> - [+2 length snake] and [15 pkt] [+speed]<br />
   <b>white circle</b> - (rare)[-3 length snake] and [5 pkt] [++speed]<br />
-  <b>white wheel</b> - (rare)[+4 length snake] and [5 pkt] [+++speed]<br />
+  <b>white wheel</b> - (rare)[+4 length snake] and [5 pkt] [+++speed]<br /><br />
+  <b>[space]</b> - Speed
   </td></tr>
   <tr><td>
   <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/4.png" height="150" width="250"/>
