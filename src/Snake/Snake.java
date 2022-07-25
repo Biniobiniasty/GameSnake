@@ -10,6 +10,10 @@ import Graphics.Screen;
 import Input.Keyboard;
 import Main.Game;
 import World.Artefakt1;
+import World.Artefakt2;
+import World.Artefakt3;
+import World.Artefakt4;
+import World.Artefakt5;
 import World.Map;
 import World.Tile;
 
@@ -117,6 +121,10 @@ public class Snake {
 			// Go ahead
 			boolean Head = false;
 			boolean addlength = false;
+			boolean addlength2 = false;
+			boolean cutlength = false;
+			boolean cutlength_long = false;
+			boolean addlength_long = false;
 			int posX = 0, posY = 0;
 			int lastX = 0, lastY = 0;
 
@@ -130,18 +138,67 @@ public class Snake {
 					lastX = x.x;
 					lastY = x.y;
 
-					// Check artefact
+					// Check artefact1
 					addlength = false;
 					if (Map.tiles[posX][posY] instanceof Artefakt1) {
 						addlength = true;
 						Map.tiles[posX][posY] = Tile.getTile(6);
 						Map.counterArtefact--;
 						Game.score += 10;
-						this.speed -= 5;
+						this.speed -= 3;
 						if(speed < 50)
 							speed = 50;
 					}
 
+					// Check Artefact2
+					if(Map.tiles[posX][posY] instanceof Artefakt2)
+					{
+						addlength=true;
+						addlength2=true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact1--;
+						Game.score += 15;
+						this.speed -= 5;
+						if(speed < 50)
+							speed = 50;
+					}
+					
+					// Check Artefact 3
+					if(Map.tiles[posX][posY] instanceof Artefakt3)
+					{
+						cutlength = true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact2--;
+						Game.score += 5;
+						this.speed += 4;
+						if(speed < 50)
+							speed = 50;
+					}
+					
+					// Check Artefact 4
+					if(Map.tiles[posX][posY] instanceof Artefakt4)
+					{
+						addlength_long = true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact3--;
+						Game.score += 1000;
+						this.speed -= 25;
+						if(speed < 50)
+							speed = 50;
+					}
+					
+					// Check Artefact 5
+					if(Map.tiles[posX][posY] instanceof Artefakt5)
+					{
+						cutlength_long = true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact4--;
+						Game.score += 100;
+						this.speed -= 10;
+						if(speed < 50)
+							speed = 50;
+					}
+					
 					// Check colide band
 					if (posX < 1 || posY < 1 || posX > Game.WordSize - 2 || posY > Game.WordSize - 2) {
 						Manager.ChangeGameState(Manager.GAME_STATE_MENU);
@@ -155,6 +212,8 @@ public class Snake {
 				if ((posX == x.x) && (posY == x.y))
 					Manager.ChangeGameState(Manager.GAME_STATE_MENU);
 			}
+			
+			// Dzialanie Artefakt1 i Artefakt2
 			if (!addlength) {
 				refresh.remove(refresh.size() - 1);
 			} else {
@@ -162,12 +221,50 @@ public class Snake {
 				if (speed < 1)
 					speed = 1;
 			}
+			
+			// Dzialanie Artefakt2
+			if(addlength2)
+			{
+				int lastx = refresh.get(refresh.size()-1).x;
+				int lasty = refresh.get(refresh.size()-1).y;
+				refresh.add(new vector(lastx-1, lasty-1, lastx-2, lasty-2));
+				
+			}
+			
+			// Dzialanie Artefakt3
+			if(cutlength)
+			{
+				if(refresh.size() > 3)
+					refresh.remove(refresh.size() -1);
+			}
+			
+			// Dzialanie Artefakt 4
+			if(cutlength_long)
+			{
+				for(int x=0;x<4;x++)
+					if(refresh.size() > 3)
+						refresh.remove(refresh.size()-1);
+					else
+						break;
+			}
+			
+			// Dzialanie Artefakt 5
+			if(addlength_long)
+			{
+				int lastx = refresh.get(refresh.size()-1).x;
+				int lasty = refresh.get(refresh.size()-1).y;
+				
+				for(int x=1;x<=10;x++)
+					refresh.add(new vector(lastx-x, lasty-x, lastx-1-x, lasty-1-x));
+				
+			}
+			
 			abdomen = refresh;
 			changeDirection = true;
 		}
 		direction();
 		if(Keyboard.getKey(KeyEvent.VK_SPACE))
-		{
+		{	
 			if(MaxSpeed)
 			{
 				Tspeed = speed;

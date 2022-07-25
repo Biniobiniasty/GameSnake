@@ -18,6 +18,10 @@ public class Tile {
 		if(id == 5)return new Background3();
 		if(id == 6)return new Background_black();
 		if(id == 7)return new Artefakt1();
+		if(id == 8)return new Artefakt2();
+		if(id == 9)return new Artefakt3();
+		if(id == 10)return new Artefakt4();
+		if(id == 11)return new Artefakt5();
 		return new Head();
 	}
 	
