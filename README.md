@@ -17,6 +17,7 @@
   <b><i>SETTINGS:</i></b><br /><br />
     <ul>
       <li> We can choose resolution or full screen.</li>
+      <li> Size map options from 20x20 to 100x100 </li>
     </ul>
   </td></tr>
   </table>
