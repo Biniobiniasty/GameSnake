@@ -1,5 +1,5 @@
 package Main;
-
+// Snake
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GraphicsDevice;
@@ -19,12 +19,13 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.Color;
 
 public class Main {
 
 	public static int WIDTH, HEIGHT;
 
-	private JFrame frame;
+	private JFrame frmSnake;
 
 	/**
 	 * Launch the application.
@@ -34,7 +35,7 @@ public class Main {
 			public void run() {
 				try {
 					Main window = new Main();
-					window.frame.setVisible(true);
+					window.frmSnake.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,15 +54,21 @@ public class Main {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 278, 145);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSnake = new JFrame();
+		frmSnake.setTitle("Snake");
+		frmSnake.getContentPane().setBackground(Color.BLACK);
+		frmSnake.setBounds(100, 100, 278, 145);
+		frmSnake.setResizable(false);
+		frmSnake.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JLabel lblNewLabel = new JLabel("Resolution ");
+		lblNewLabel.setForeground(Color.RED);
 
 		JComboBox comboBox = new JComboBox();
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Full screen");
+		chckbxNewCheckBox.setSelected(true);
+		chckbxNewCheckBox.setBackground(Color.BLACK);
+		chckbxNewCheckBox.setForeground(Color.CYAN);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "1024x768", "1600x900" }));
 		JComboBox comboBox1 = new JComboBox();
 		JButton btnNewButton = new JButton("Play");
@@ -134,9 +141,11 @@ public class Main {
 
 		comboBox1.setModel(
 				new DefaultComboBoxModel(new String[] { "20x20", "30x30", "40x40", "50x50", "75x75", "100x100" }));
+		comboBox1.setSelectedIndex(1);
 
 		JLabel lblNewLabel_1 = new JLabel("Size map");
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		lblNewLabel_1.setForeground(Color.RED);
+		GroupLayout groupLayout = new GroupLayout(frmSnake.getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
 				.createSequentialGroup().addContainerGap()
 				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -172,6 +181,6 @@ public class Main {
 				.addGap(18).addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(chckbxNewCheckBox)
 						.addComponent(btnNewButton))
 				.addGap(367)));
-		frame.getContentPane().setLayout(groupLayout);
+		frmSnake.getContentPane().setLayout(groupLayout);
 	}
 }
