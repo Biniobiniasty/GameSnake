@@ -27,7 +27,7 @@ public class Snake {
 		}
 	}
 
-	private int speed;
+	private int speed, Tspeed;
 	private int centerX, centerY;
 
 	private int kierunekX, kierunekY;
@@ -41,6 +41,7 @@ public class Snake {
 
 	public Snake() {
 		speed = 200; // to less value for faster
+		Tspeed = 200;
 		TimeNOW = System.nanoTime();
 		TimeLAST = TimeNOW;
 		centerX = Game.WordSize / 2;
@@ -68,7 +69,7 @@ public class Snake {
 		if (Keyboard.getKey(KeyEvent.VK_DOWN) && this.newDirectionY != -1) {
 			this.newDirectionX = 0;
 			this.newDirectionY = 1;
-		}
+		} 
 		if (Keyboard.getKey(KeyEvent.VK_RIGHT) && this.newDirectionX != -1) {
 			this.newDirectionX = 1;
 			this.newDirectionY = 0;
@@ -136,6 +137,9 @@ public class Snake {
 						Map.tiles[posX][posY] = Tile.getTile(6);
 						Map.counterArtefact--;
 						Game.score += 10;
+						this.speed -= 5;
+						if(speed < 50)
+							speed = 50;
 					}
 
 					// Check colide band
@@ -146,6 +150,7 @@ public class Snake {
 				refresh.add(new vector(x.x, x.y, lastX, lastY));
 				lastX = x.x;
 				lastY = x.y;
+				
 				// Bit yourself
 				if ((posX == x.x) && (posY == x.y))
 					Manager.ChangeGameState(Manager.GAME_STATE_MENU);
@@ -165,8 +170,8 @@ public class Snake {
 		{
 			if(MaxSpeed)
 			{
-				speed -= 110;
-				System.out.println("MaxSpeed");
+				Tspeed = speed;
+				speed = 40;
 			}
 			MaxSpeed = false;
 		}
@@ -174,8 +179,7 @@ public class Snake {
 		{
 			if(!MaxSpeed)
 			{
-				speed += 110;
-				System.out.println("Normal speed");
+				speed = Tspeed;
 			}
 			MaxSpeed = true;
 		}

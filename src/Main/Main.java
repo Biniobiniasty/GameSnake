@@ -65,6 +65,7 @@ public class Main {
 		lblNewLabel.setForeground(Color.RED);
 
 		JComboBox comboBox = new JComboBox();
+		comboBox.setEnabled(false);
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Full screen");
 		chckbxNewCheckBox.setSelected(true);
 		chckbxNewCheckBox.setBackground(Color.BLACK);
