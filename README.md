@@ -4,11 +4,14 @@
   </td><td style="text-align: center">
   <b><i>CLASSIC SNAKE</i></b><br /><br />
   Artefacts:<br />
-  <b>yellow wheel</b> - [+1 length snake] and [10 pkt] [+speed]<br />
-  <b>blue wheel</b> - [-1 length snake] and [5 pkt] [-speed]<br />
-  <b>red wheel</b> - [+2 length snake] and [15 pkt] [+speed]<br />
-  <b>white circle</b> - (rare)[-3 length snake] and [5 pkt] [++speed]<br />
-  <b>white wheel</b> - (rare)[+4 length snake] and [5 pkt] [+++speed]<br /><br />
+  <ul>
+  <li><b>yellow wheel</b> - [+1 length snake] and [10 pkt] [+speed]</li>
+  <li><b>blue wheel</b> - [-1 length snake] and [5 pkt] [-speed]</li>
+  <li><b>red wheel</b> - [+2 length snake] and [15 pkt] [+speed]</li>
+  <li><b>white circle</b> - (rare)[-3 length snake] and [5 pkt] [++speed]</li>
+  <li><b>white wheel</b> - (rare)[+4 length snake] and [5 pkt] [+++speed]</li>
+  </ul>
+    <br />
   <b>[space]</b> - Speed
   </td></tr>
   <tr><td>
