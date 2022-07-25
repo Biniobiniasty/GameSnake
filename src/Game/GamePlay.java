@@ -22,7 +22,7 @@ public class GamePlay extends GameState {
 
 	@Override
 	public void update() {
-		camera.update();
+		camera.update(); 
 		map.update();
 		snake.update();
 	}
