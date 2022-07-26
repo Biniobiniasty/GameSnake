@@ -70,7 +70,7 @@ public class Map {
 
 		// Artefakt1
 		if (los == 5) {
-			if (counterArtefact < 10) {
+			if (counterArtefact < 16) {
 				int x = r.nextInt(WIDTH - 2) + 1;
 				int y = r.nextInt(HEIGHT - 2) + 1;
 				tiles[x][y] = Tile.getTile(7);
@@ -81,7 +81,7 @@ public class Map {
 		// Artefakt2
 
 		if (los == 18) {
-			if (counterArtefact1 < 5) {
+			if (counterArtefact1 < 7) {
 				int x = r.nextInt(WIDTH - 2) + 1;
 				int y = r.nextInt(HEIGHT - 2) + 1;
 				tiles[x][y] = Tile.getTile(8);
@@ -92,7 +92,7 @@ public class Map {
 		// Artefakt3
 
 		if (los == 52) {
-			if (counterArtefact2 < 3) {
+			if (counterArtefact2 < 4) {
 				int x = r.nextInt(WIDTH - 2) + 1;
 				int y = r.nextInt(HEIGHT - 2) + 1;
 				tiles[x][y] = Tile.getTile(9);
@@ -103,22 +103,26 @@ public class Map {
 //		// Artefakt4
 
 		if (los == 80) {
-			if (counterArtefact3 < 2) {
-				int x = r.nextInt(WIDTH - 2) + 1;
-				int y = r.nextInt(HEIGHT - 2) + 1;
-				tiles[x][y] = Tile.getTile(10);
-				counterArtefact3++;
+			if (counterArtefact3 < 1) {
+				if (r.nextInt(50) == 8) {
+					int x = r.nextInt(WIDTH - 2) + 1;
+					int y = r.nextInt(HEIGHT - 2) + 1;
+					tiles[x][y] = Tile.getTile(10);
+					counterArtefact3++;
+				}
 			}
 		}
 
 //		// Artefakt5
 
 		if (los == 92) {
-			if (counterArtefact4 < 2) {
-				int x = r.nextInt(WIDTH - 2) + 1;
-				int y = r.nextInt(HEIGHT - 2) + 1;
-				tiles[x][y] = Tile.getTile(11);
-				counterArtefact4++;
+			if (counterArtefact4 < 1) {
+				if (r.nextInt(50) == 12) {
+					int x = r.nextInt(WIDTH - 2) + 1;
+					int y = r.nextInt(HEIGHT - 2) + 1;
+					tiles[x][y] = Tile.getTile(11);
+					counterArtefact4++;
+				}
 			}
 		}
 

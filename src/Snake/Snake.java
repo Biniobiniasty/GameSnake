@@ -1,6 +1,7 @@
 package Snake;
 
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import Game.Camera;
 import Game.Manager;
 import Graphics.Screen;
 import Input.Keyboard;
+import Main.Files;
 import Main.Game;
+import Main.Main;
 import World.Artefakt1;
 import World.Artefakt2;
 import World.Artefakt3;
@@ -64,6 +67,59 @@ public class Snake {
 		MaxSpeed = true;
 	}
 
+	public void Lose() {
+		Main.textPane.setText(Main.textPane.getText() + "\n" + Game.score + " score [" + Main.nick + "]");
+		Manager.ChangeGameState(Manager.GAME_STATE_MENU);
+
+		String[] stringScore = new String[100];
+		int[] integerScore = new int[100];
+		int index = 0;
+
+		for (String scor : Main.textPane.getText().split("\n")) {
+			StringBuilder liczba = new StringBuilder();
+			liczba.setLength(0);
+			for (int x = 0; x < scor.length(); x++)
+				if (scor.toCharArray()[x] != ' ')
+					liczba.append(scor.toCharArray()[x]);
+				else
+					break;
+			System.out.println(liczba);
+			if (liczba.length() <= 0)
+				continue;
+			integerScore[index] = Integer.parseInt(liczba.toString());
+			stringScore[index] = scor;
+			index++;
+			if (index >= 99)
+				break;
+		}
+		
+		for (int x = 0; x < index; x++)
+			for (int y = x; y < index; y++)
+				if (integerScore[x] < integerScore[y]) {
+					String Stmp = stringScore[x];
+					int Itmp = integerScore[x];
+					stringScore[x] = stringScore[y];
+					integerScore[x] = integerScore[y];
+					stringScore[y] = Stmp;
+					integerScore[y] = Itmp;
+				}
+
+		StringBuilder resultScore = new StringBuilder();
+		for (int x = 0; x < index; x++) {
+			if(integerScore[x] != 0)
+				resultScore.append(stringScore[x] + "\n");
+		}
+
+		Main.textPane.setText(resultScore.toString());
+		
+		try {
+			Files.Save(Main.katalog + "\\Table.sn", Main.textPane.getText());
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
 	public void direction() {
 
 		if (Keyboard.getKey(KeyEvent.VK_UP) && this.newDirectionY != 1) {
@@ -73,7 +129,7 @@ public class Snake {
 		if (Keyboard.getKey(KeyEvent.VK_DOWN) && this.newDirectionY != -1) {
 			this.newDirectionX = 0;
 			this.newDirectionY = 1;
-		} 
+		}
 		if (Keyboard.getKey(KeyEvent.VK_RIGHT) && this.newDirectionX != -1) {
 			this.newDirectionX = 1;
 			this.newDirectionY = 0;
@@ -82,7 +138,7 @@ public class Snake {
 			this.newDirectionX = -1;
 			this.newDirectionY = 0;
 		}
-		if (changeDirection) { 
+		if (changeDirection) {
 			changeDirection = false;
 
 			if (Math.abs(lastDirectionX) == 1) {
@@ -146,73 +202,71 @@ public class Snake {
 						Map.counterArtefact--;
 						Game.score += 10;
 						this.speed -= 3;
-						if(speed < 50)
+						if (speed < 50)
 							speed = 50;
 					}
 
 					// Check Artefact2
-					if(Map.tiles[posX][posY] instanceof Artefakt2)
-					{
-						addlength=true;
-						addlength2=true;
+					if (Map.tiles[posX][posY] instanceof Artefakt2) {
+						addlength = true;
+						addlength2 = true;
 						Map.tiles[posX][posY] = Tile.getTile(6);
 						Map.counterArtefact1--;
 						Game.score += 15;
 						this.speed -= 5;
-						if(speed < 50)
+						if (speed < 50)
 							speed = 50;
 					}
-					
+
 					// Check Artefact 3
-					if(Map.tiles[posX][posY] instanceof Artefakt3)
-					{
+					if (Map.tiles[posX][posY] instanceof Artefakt3) {
 						cutlength = true;
 						Map.tiles[posX][posY] = Tile.getTile(6);
 						Map.counterArtefact2--;
 						Game.score += 5;
 						this.speed += 4;
-						if(speed < 50)
+						if (speed < 50)
 							speed = 50;
 					}
-					
+
 					// Check Artefact 4
-					if(Map.tiles[posX][posY] instanceof Artefakt4)
-					{
+					if (Map.tiles[posX][posY] instanceof Artefakt4) {
 						addlength_long = true;
 						Map.tiles[posX][posY] = Tile.getTile(6);
 						Map.counterArtefact3--;
-						Game.score += 1000;
+						Game.score += 200;
 						this.speed -= 25;
-						if(speed < 50)
+						if (speed < 50)
 							speed = 50;
 					}
-					
+
 					// Check Artefact 5
-					if(Map.tiles[posX][posY] instanceof Artefakt5)
-					{
+					if (Map.tiles[posX][posY] instanceof Artefakt5) {
 						cutlength_long = true;
 						Map.tiles[posX][posY] = Tile.getTile(6);
 						Map.counterArtefact4--;
 						Game.score += 100;
 						this.speed -= 10;
-						if(speed < 50)
+						if (speed < 50)
 							speed = 50;
 					}
-					
+
 					// Check colide band
 					if (posX < 1 || posY < 1 || posX > Game.WordSize - 2 || posY > Game.WordSize - 2) {
-						Manager.ChangeGameState(Manager.GAME_STATE_MENU);
+						Lose();
 					}
 				}
 				refresh.add(new vector(x.x, x.y, lastX, lastY));
 				lastX = x.x;
 				lastY = x.y;
-				
+
 				// Bit yourself
-				if ((posX == x.x) && (posY == x.y))
-					Manager.ChangeGameState(Manager.GAME_STATE_MENU);
+				if ((posX == x.x) && (posY == x.y)) {
+
+					Lose();
+				}
 			}
-			
+
 			// Dzialanie Artefakt1 i Artefakt2
 			if (!addlength) {
 				refresh.remove(refresh.size() - 1);
@@ -221,61 +275,52 @@ public class Snake {
 				if (speed < 1)
 					speed = 1;
 			}
-			
+
 			// Dzialanie Artefakt2
-			if(addlength2)
-			{
-				int lastx = refresh.get(refresh.size()-1).x;
-				int lasty = refresh.get(refresh.size()-1).y;
-				refresh.add(new vector(lastx-1, lasty-1, lastx-2, lasty-2));
-				
+			if (addlength2) {
+				int lastx = refresh.get(refresh.size() - 1).x;
+				int lasty = refresh.get(refresh.size() - 1).y;
+				refresh.add(new vector(lastx - 1, lasty - 1, lastx - 2, lasty - 2));
+
 			}
-			
+
 			// Dzialanie Artefakt3
-			if(cutlength)
-			{
-				if(refresh.size() > 3)
-					refresh.remove(refresh.size() -1);
+			if (cutlength) {
+				if (refresh.size() > 3)
+					refresh.remove(refresh.size() - 1);
 			}
-			
+
 			// Dzialanie Artefakt 4
-			if(cutlength_long)
-			{
-				for(int x=0;x<4;x++)
-					if(refresh.size() > 3)
-						refresh.remove(refresh.size()-1);
+			if (cutlength_long) {
+				for (int x = 0; x < 2; x++)
+					if (refresh.size() > 3)
+						refresh.remove(refresh.size() - 1);
 					else
 						break;
 			}
-			
+
 			// Dzialanie Artefakt 5
-			if(addlength_long)
-			{
-				int lastx = refresh.get(refresh.size()-1).x;
-				int lasty = refresh.get(refresh.size()-1).y;
-				
-				for(int x=1;x<=10;x++)
-					refresh.add(new vector(lastx-x, lasty-x, lastx-1-x, lasty-1-x));
-				
+			if (addlength_long) {
+				int lastx = refresh.get(refresh.size() - 1).x;
+				int lasty = refresh.get(refresh.size() - 1).y;
+
+				for (int x = 1; x <= 4; x++)
+					refresh.add(new vector(lastx - x, lasty - x, lastx - 1 - x, lasty - 1 - x));
+
 			}
-			
+
 			abdomen = refresh;
 			changeDirection = true;
 		}
 		direction();
-		if(Keyboard.getKey(KeyEvent.VK_SPACE))
-		{	
-			if(MaxSpeed)
-			{
+		if (Keyboard.getKey(KeyEvent.VK_SPACE)) {
+			if (MaxSpeed) {
 				Tspeed = speed;
 				speed = 40;
 			}
 			MaxSpeed = false;
-		}
-		else
-		{
-			if(!MaxSpeed)
-			{
+		} else {
+			if (!MaxSpeed) {
 				speed = Tspeed;
 			}
 			MaxSpeed = true;
