@@ -59,7 +59,8 @@ public class Main {
 	 */
 	public Main() throws FileNotFoundException {
 		initialize();
-		Main.textPane.setText(Files.Load(katalog + "\\Table.sn"));
+		
+		Main.textPane.setText(Files.Load(katalog.toString()));
 	}
 
 	/**

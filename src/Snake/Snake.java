@@ -113,7 +113,7 @@ public class Snake {
 		Main.textPane.setText(resultScore.toString());
 		
 		try {
-			Files.Save(Main.katalog + "\\Table.sn", Main.textPane.getText());
+			Files.Save(Main.katalog.toString(), Main.textPane.getText());
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
