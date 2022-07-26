@@ -15,7 +15,7 @@
   <b>[space]</b> - Speed
   </td></tr>
   <tr><td>
-  <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/0.png" height="300" width="350"/>
+  <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/0.png" height="350" width="450"/>
   </td><td style="text-align: center">
   <b><i>SETTINGS:</i></b><br /><br />
     <ul>
