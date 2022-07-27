@@ -19,6 +19,7 @@ import World.Artefakt4;
 import World.Artefakt5;
 import World.Artefakt6;
 import World.Artefakt7;
+import World.Artefakt8;
 import World.Map;
 import World.Tile;
 
@@ -44,7 +45,7 @@ public class Snake {
 	private int newDirectionX, newDirectionY;
 	private boolean changeDirection;
 	private boolean MaxSpeed;
-	private int bodyTile, multiScore;
+	private int bodyTile, multiScore, headTile;
 	private long TimebodyAndScore;
 
 	private List<vector> abdomen;
@@ -71,6 +72,7 @@ public class Snake {
 		MaxSpeed = true;
 		bodyTile = 2;
 		multiScore = 1;
+		headTile = 17;
 	}
 
 	public void Lose() {
@@ -98,7 +100,7 @@ public class Snake {
 			if (index >= 99)
 				break;
 		}
-		
+
 		for (int x = 0; x < index; x++)
 			for (int y = x; y < index; y++)
 				if (integerScore[x] < integerScore[y]) {
@@ -112,12 +114,12 @@ public class Snake {
 
 		StringBuilder resultScore = new StringBuilder();
 		for (int x = 0; x < index; x++) {
-			if(integerScore[x] != 0)
+			if (integerScore[x] != 0)
 				resultScore.append(stringScore[x] + "\n");
 		}
 
 		Main.textPane.setText(resultScore.toString());
-		
+
 		try {
 			Files.Save(Main.katalog.toString(), Main.textPane.getText());
 		} catch (FileNotFoundException e1) {
@@ -188,6 +190,7 @@ public class Snake {
 			boolean addlength_long = false;
 			boolean bodyAndScore = false;
 			boolean bodyAndScoreTriple = false;
+			boolean ArtefactRepaint = false;
 			int posX = 0, posY = 0;
 			int lastX = 0, lastY = 0;
 
@@ -268,7 +271,7 @@ public class Snake {
 						if (speed < 50)
 							speed = 50;
 					}
-					
+
 					// Check Artefact 7
 					if (Map.tiles[posX][posY] instanceof Artefakt7) {
 						bodyAndScoreTriple = true;
@@ -280,7 +283,17 @@ public class Snake {
 							speed = 50;
 					}
 
-					
+					// Check Artefact 8
+					if (Map.tiles[posX][posY] instanceof Artefakt8) {
+						ArtefactRepaint = true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact7--;
+						Game.score += (500 * multiScore);
+						this.speed += 4;
+						if (speed < 50)
+							speed = 50;
+					}
+
 					// Check colide band
 					if (posX < 1 || posY < 1 || posX > Game.WordSize - 2 || posY > Game.WordSize - 2) {
 						Lose();
@@ -340,72 +353,70 @@ public class Snake {
 			}
 
 			// Dzialanie Artefakt 6
-			if(bodyAndScore)
-			{
-				
+			if (bodyAndScore) {
+
 				// Niwelowanie dzialania Artefaktu 7 jezeli jest pod wplywem
-				if(multiScore == 3)
+				if (multiScore == 3)
 					this.speed += 25;
-				
+
 				// Niwelowanie roznic jezeli wezmie ten sam Artefakt
-				if(multiScore == 2)
+				if (multiScore == 2)
 					this.speed += 20;
-				
+
 				multiScore = 2;
 				bodyTile = 13;
 				this.speed -= 20;
-				if(this.speed < 50)
+				if (this.speed < 50)
 					this.speed = 50;
 				TimebodyAndScore = System.currentTimeMillis();
 			}
-			
-			
+
 			// Desactive Artefakt 6
-			if(multiScore == 2)
-			{
-				if(System.currentTimeMillis()-TimebodyAndScore > 1000 * 17)
-				{
+			if (multiScore == 2) {
+				if (System.currentTimeMillis() - TimebodyAndScore > 1000 * 17) {
 					multiScore = 1;
 					bodyTile = 2;
 					this.speed += 20;
 				}
 			}
-			
+
 			// Dzialanie Artefakt 7
-			if(bodyAndScoreTriple)
-			{
+			if (bodyAndScoreTriple) {
 				// Niwelowanie dzialania Artefaktu 6 jezeli jest pod wplywem
-				if(multiScore == 2)
+				if (multiScore == 2)
 					this.speed += 20;
-				
+
 				// Niwelowanie roznic jezeli wezmie ten sam Artefakt
-				if(multiScore == 3)
+				if (multiScore == 3)
 					this.speed += 25;
-				
+
 				multiScore = 3;
 				bodyTile = 15;
 				this.speed -= 25;
-				if(this.speed < 50)
+				if (this.speed < 50)
 					this.speed = 50;
 				TimebodyAndScore = System.currentTimeMillis();
 			}
-			
+
 			// Desactive Artefakt 7
-			if(multiScore == 3)
-			{
-				if(System.currentTimeMillis()-TimebodyAndScore > 1000 * 12)
-				{
+			if (multiScore == 3) {
+				if (System.currentTimeMillis() - TimebodyAndScore > 1000 * 12) {
 					multiScore = 1;
 					bodyTile = 2;
 					this.speed += 25;
 				}
 			}
-			
+			// Dzialanie Artefakt 8
+			if (ArtefactRepaint) {
+				// if this variable equals true map repaint and change to false
+				Map.reapaintArtefact = true;
+			}
+
 			abdomen = refresh;
 			changeDirection = true;
 		}
 		direction();
-		
+
 		// [space] - full speed
 		if (Keyboard.getKey(KeyEvent.VK_SPACE)) {
 			if (MaxSpeed) {
@@ -419,6 +430,9 @@ public class Snake {
 			}
 			MaxSpeed = true;
 		}
+		if(Game.score >= 5000)
+			headTile = 0;
+		
 	}
 
 	long animeTimeNow = System.nanoTime();
@@ -442,7 +456,7 @@ public class Snake {
 
 		for (vector x : abdomen) {
 			if (PrintHead) {
-				Tile.getTile(0).render(s, (x.lastX * 16) + (x.x - x.lastX) * animeHead,
+				Tile.getTile(headTile).render(s, (x.lastX * 16) + (x.x - x.lastX) * animeHead,
 						(x.lastY * 16) + (x.y - x.lastY) * animeHead, c);
 //				Tile.getTile(0).render(s, x.x*16, x.y*16, c);
 

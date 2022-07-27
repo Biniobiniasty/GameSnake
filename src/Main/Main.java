@@ -34,6 +34,10 @@ public class Main {
 	private JFrame frmSnake;
 	private JTextField textField;
 	public static JTextPane textPane = new JTextPane();
+	public static JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Abnormal artefact amount");
+	public static JCheckBox chckbxNewCheckBox_1_1 = new JCheckBox("Amnormal artefacts frequency");
+
+
 
 	public static File katalog = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 
@@ -178,49 +182,66 @@ public class Main {
 
 		textPane.setForeground(new Color(240, 230, 140));
 		textPane.setBackground(new Color(0, 0, 128));
+		
+		chckbxNewCheckBox_1.setBackground(Color.BLACK);
+		chckbxNewCheckBox_1.setForeground(Color.CYAN);
+		
+		chckbxNewCheckBox_1_1.setForeground(Color.CYAN);
+		chckbxNewCheckBox_1_1.setBackground(Color.BLACK);
 		GroupLayout groupLayout = new GroupLayout(frmSnake.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
-				groupLayout.createSequentialGroup().addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-										.createParallelGroup(Alignment.LEADING).addComponent(chckbxNewCheckBox)
-										.addGroup(groupLayout.createSequentialGroup()
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 112,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblNewLabel))
-												.addPreferredGap(ComponentPlacement.UNRELATED)
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 70,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, 113,
-																GroupLayout.PREFERRED_SIZE))))
-										.addGap(18)
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addComponent(lblNewLabel_1_1, Alignment.LEADING,
-														GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-												.addComponent(textField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-														314, Short.MAX_VALUE)
-												.addComponent(btnNewButton))))
-						.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel)
-								.addComponent(lblNewLabel_1).addComponent(lblNewLabel_1_1))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(chckbxNewCheckBox)
-								.addComponent(btnNewButton))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE).addContainerGap()));
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(chckbxNewCheckBox)
+									.addGap(18)
+									.addComponent(chckbxNewCheckBox_1))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNewLabel))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblNewLabel_1_1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(chckbxNewCheckBox_1_1)
+									.addPreferredGap(ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+									.addComponent(btnNewButton)))))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel)
+						.addComponent(lblNewLabel_1)
+						.addComponent(lblNewLabel_1_1))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxNewCheckBox)
+						.addComponent(btnNewButton)
+						.addComponent(chckbxNewCheckBox_1)
+						.addComponent(chckbxNewCheckBox_1_1))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+					.addContainerGap())
+		);
 		frmSnake.getContentPane().setLayout(groupLayout);
 	}
 }

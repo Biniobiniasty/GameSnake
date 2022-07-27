@@ -26,6 +26,9 @@ public class Tile {
 		if(id == 13)return new Body2();
 		if(id == 14)return new Artefakt7();
 		if(id == 15)return new Body3();
+		if(id == 16)return new Artefakt8();
+		if(id == 17)return new Head2();
+		
 		return new Head();
 	}
 	
