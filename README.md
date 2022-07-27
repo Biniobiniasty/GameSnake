@@ -10,6 +10,8 @@
   <li><b>red wheel</b> - [+2 length snake] and [15 pkt] [+speed]</li>
   <li><b>white circle</b> - (rare)[-3 length snake] and [100 pkt] [++speed]</li>
   <li><b>white wheel</b> - (rare)[+4 length snake] and [200 pkt] [+++speed]</li>
+  <li><b>red x</b> - [++speed] [multiplier x2 scores] duration 17s</li>
+  <li><b>blue symbol</b> - [++speed] [multiplier x3 scores] duration 12s</li>
   </ul>
     <br />
   <b>[space]</b> - Speed
