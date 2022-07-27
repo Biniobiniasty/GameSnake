@@ -23,6 +23,8 @@
     <ul>
       <li> We can choose resolution or full screen.</li>
       <li> Size map options from 20x20 to 100x100 </li>
+      <li> In abnormal frequency mode appears a lot of artefacts in one time.</li>
+      <li> In abnormal artefact mode appears a lot of artefacts on map.</li>
     </ul>
   </td></tr>
   </table>
