@@ -31,14 +31,14 @@
   <br /><br />
   <table>
   <tr><td>
-      <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/5.png" height="500" width="600"/>
+      <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/5.png" height="400" width="600"/>
     </td><td>
-     <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/2.png" height="500" width="600"/>
+     <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/2.png" height="400" width="600"/>
     </td></tr>
   <tr><td>
-     <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/7.png" height="500" width="600"/>
+     <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/7.png" height="400" width="600"/>
     </td><td>
-          <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/6.png" height="500" width="600"/>
+          <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/6.png" height="400" width="600"/>
     </td></tr>
   </table>
 
