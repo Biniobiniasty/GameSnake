@@ -1,6 +1,7 @@
 package Snake;
 
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,16 @@ import Game.Camera;
 import Game.Manager;
 import Graphics.Screen;
 import Input.Keyboard;
+import Main.Files;
 import Main.Game;
+import Main.Main;
 import World.Artefakt1;
+import World.Artefakt2;
+import World.Artefakt3;
+import World.Artefakt4;
+import World.Artefakt5;
+import World.Artefakt6;
+import World.Artefakt7;
 import World.Map;
 import World.Tile;
 
@@ -35,6 +44,8 @@ public class Snake {
 	private int newDirectionX, newDirectionY;
 	private boolean changeDirection;
 	private boolean MaxSpeed;
+	private int bodyTile, multiScore;
+	private long TimebodyAndScore;
 
 	private List<vector> abdomen;
 	private long TimeNOW, TimeLAST;
@@ -58,6 +69,60 @@ public class Snake {
 		abdomen.add(new vector(centerX - 2, centerY, centerX - 2, centerY));
 		changeDirection = true;
 		MaxSpeed = true;
+		bodyTile = 2;
+		multiScore = 1;
+	}
+
+	public void Lose() {
+		Main.textPane.setText(Main.textPane.getText() + "\n" + Game.score + " score [" + Main.nick + "]");
+		Manager.ChangeGameState(Manager.GAME_STATE_MENU);
+
+		String[] stringScore = new String[100];
+		int[] integerScore = new int[100];
+		int index = 0;
+
+		for (String scor : Main.textPane.getText().split("\n")) {
+			StringBuilder liczba = new StringBuilder();
+			liczba.setLength(0);
+			for (int x = 0; x < scor.length(); x++)
+				if (scor.toCharArray()[x] != ' ')
+					liczba.append(scor.toCharArray()[x]);
+				else
+					break;
+			System.out.println(liczba);
+			if (liczba.length() <= 0)
+				continue;
+			integerScore[index] = Integer.parseInt(liczba.toString());
+			stringScore[index] = scor;
+			index++;
+			if (index >= 99)
+				break;
+		}
+		
+		for (int x = 0; x < index; x++)
+			for (int y = x; y < index; y++)
+				if (integerScore[x] < integerScore[y]) {
+					String Stmp = stringScore[x];
+					int Itmp = integerScore[x];
+					stringScore[x] = stringScore[y];
+					integerScore[x] = integerScore[y];
+					stringScore[y] = Stmp;
+					integerScore[y] = Itmp;
+				}
+
+		StringBuilder resultScore = new StringBuilder();
+		for (int x = 0; x < index; x++) {
+			if(integerScore[x] != 0)
+				resultScore.append(stringScore[x] + "\n");
+		}
+
+		Main.textPane.setText(resultScore.toString());
+		
+		try {
+			Files.Save(Main.katalog.toString(), Main.textPane.getText());
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	public void direction() {
@@ -69,7 +134,7 @@ public class Snake {
 		if (Keyboard.getKey(KeyEvent.VK_DOWN) && this.newDirectionY != -1) {
 			this.newDirectionX = 0;
 			this.newDirectionY = 1;
-		} 
+		}
 		if (Keyboard.getKey(KeyEvent.VK_RIGHT) && this.newDirectionX != -1) {
 			this.newDirectionX = 1;
 			this.newDirectionY = 0;
@@ -78,7 +143,7 @@ public class Snake {
 			this.newDirectionX = -1;
 			this.newDirectionY = 0;
 		}
-		if (changeDirection) { 
+		if (changeDirection) {
 			changeDirection = false;
 
 			if (Math.abs(lastDirectionX) == 1) {
@@ -117,6 +182,12 @@ public class Snake {
 			// Go ahead
 			boolean Head = false;
 			boolean addlength = false;
+			boolean addlength2 = false;
+			boolean cutlength = false;
+			boolean cutlength_long = false;
+			boolean addlength_long = false;
+			boolean bodyAndScore = false;
+			boolean bodyAndScoreTriple = false;
 			int posX = 0, posY = 0;
 			int lastX = 0, lastY = 0;
 
@@ -130,31 +201,103 @@ public class Snake {
 					lastX = x.x;
 					lastY = x.y;
 
-					// Check artefact
+					// Check artefact1
 					addlength = false;
 					if (Map.tiles[posX][posY] instanceof Artefakt1) {
 						addlength = true;
 						Map.tiles[posX][posY] = Tile.getTile(6);
 						Map.counterArtefact--;
-						Game.score += 10;
-						this.speed -= 5;
-						if(speed < 50)
+						Game.score += (10 * multiScore);
+						this.speed -= 3;
+						if (speed < 50)
 							speed = 50;
 					}
 
+					// Check Artefact2
+					if (Map.tiles[posX][posY] instanceof Artefakt2) {
+						addlength = true;
+						addlength2 = true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact1--;
+						Game.score += (15 * multiScore);
+						this.speed -= 5;
+						if (speed < 50)
+							speed = 50;
+					}
+
+					// Check Artefact 3
+					if (Map.tiles[posX][posY] instanceof Artefakt3) {
+						cutlength = true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact2--;
+						Game.score += (5 * multiScore);
+						this.speed += 4;
+						if (speed < 50)
+							speed = 50;
+					}
+
+					// Check Artefact 4
+					if (Map.tiles[posX][posY] instanceof Artefakt4) {
+						addlength_long = true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact3--;
+						Game.score += (200 * multiScore);
+						this.speed -= 25;
+						if (speed < 50)
+							speed = 50;
+					}
+
+					// Check Artefact 5
+					if (Map.tiles[posX][posY] instanceof Artefakt5) {
+						cutlength_long = true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact4--;
+						Game.score += (100 * multiScore);
+						this.speed -= 10;
+						if (speed < 50)
+							speed = 50;
+					}
+
+					// Check Artefact 6
+					if (Map.tiles[posX][posY] instanceof Artefakt6) {
+						bodyAndScore = true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact5--;
+						Game.score += (2 * multiScore);
+						this.speed += 1;
+						if (speed < 50)
+							speed = 50;
+					}
+					
+					// Check Artefact 7
+					if (Map.tiles[posX][posY] instanceof Artefakt7) {
+						bodyAndScoreTriple = true;
+						Map.tiles[posX][posY] = Tile.getTile(6);
+						Map.counterArtefact6--;
+						Game.score += (3 * multiScore);
+						this.speed += 5;
+						if (speed < 50)
+							speed = 50;
+					}
+
+					
 					// Check colide band
 					if (posX < 1 || posY < 1 || posX > Game.WordSize - 2 || posY > Game.WordSize - 2) {
-						Manager.ChangeGameState(Manager.GAME_STATE_MENU);
+						Lose();
 					}
 				}
 				refresh.add(new vector(x.x, x.y, lastX, lastY));
 				lastX = x.x;
 				lastY = x.y;
-				
+
 				// Bit yourself
-				if ((posX == x.x) && (posY == x.y))
-					Manager.ChangeGameState(Manager.GAME_STATE_MENU);
+				if ((posX == x.x) && (posY == x.y)) {
+
+					Lose();
+				}
 			}
+
+			// Dzialanie Artefakt1 i Artefakt2
 			if (!addlength) {
 				refresh.remove(refresh.size() - 1);
 			} else {
@@ -162,23 +305,99 @@ public class Snake {
 				if (speed < 1)
 					speed = 1;
 			}
+
+			// Dzialanie Artefakt2
+			if (addlength2) {
+				int lastx = refresh.get(refresh.size() - 1).x;
+				int lasty = refresh.get(refresh.size() - 1).y;
+				refresh.add(new vector(lastx - 1, lasty - 1, lastx - 2, lasty - 2));
+
+			}
+
+			// Dzialanie Artefakt3
+			if (cutlength) {
+				if (refresh.size() > 3)
+					refresh.remove(refresh.size() - 1);
+			}
+
+			// Dzialanie Artefakt 4
+			if (cutlength_long) {
+				for (int x = 0; x < 2; x++)
+					if (refresh.size() > 3)
+						refresh.remove(refresh.size() - 1);
+					else
+						break;
+			}
+
+			// Dzialanie Artefakt 5
+			if (addlength_long) {
+				int lastx = refresh.get(refresh.size() - 1).x;
+				int lasty = refresh.get(refresh.size() - 1).y;
+
+				for (int x = 1; x <= 4; x++)
+					refresh.add(new vector(lastx - x, lasty - x, lastx - 1 - x, lasty - 1 - x));
+
+			}
+
+			// Dzialanie Artefakt 6
+			if(bodyAndScore)
+			{
+				multiScore = 2;
+				bodyTile = 13;
+				this.speed -= 20;
+				if(this.speed < 50)
+					this.speed = 50;
+				TimebodyAndScore = System.currentTimeMillis();
+			}
+			
+			
+			// Desactive Artefakt 6
+			if(multiScore == 2)
+			{
+				if(System.currentTimeMillis()-TimebodyAndScore > 1000 * 17)
+				{
+					multiScore = 1;
+					bodyTile = 2;
+					this.speed += 20;
+				}
+			}
+			
+			// Dzialanie Artefakt 7
+			if(bodyAndScoreTriple)
+			{
+				multiScore = 3;
+				bodyTile = 15;
+				this.speed -= 25;
+				if(this.speed < 50)
+					this.speed = 50;
+				TimebodyAndScore = System.currentTimeMillis();
+			}
+			
+			// Desactive Artefakt 7
+			if(multiScore == 3)
+			{
+				if(System.currentTimeMillis()-TimebodyAndScore > 1000 * 12)
+				{
+					multiScore = 1;
+					bodyTile = 2;
+					this.speed += 25;
+				}
+			}
+			
 			abdomen = refresh;
 			changeDirection = true;
 		}
 		direction();
-		if(Keyboard.getKey(KeyEvent.VK_SPACE))
-		{
-			if(MaxSpeed)
-			{
+		
+		// [space] - full speed
+		if (Keyboard.getKey(KeyEvent.VK_SPACE)) {
+			if (MaxSpeed) {
 				Tspeed = speed;
 				speed = 40;
 			}
 			MaxSpeed = false;
-		}
-		else
-		{
-			if(!MaxSpeed)
-			{
+		} else {
+			if (!MaxSpeed) {
 				speed = Tspeed;
 			}
 			MaxSpeed = true;
@@ -222,7 +441,7 @@ public class Snake {
 					double XX = (((double) x.lastX) * 16.0) + (((double) x.x - (double) x.lastX) * (double) anime);
 					double YY = (((double) x.lastY) * 16.0) + (((double) x.y - (double) x.lastY) * (double) anime);
 
-					Tile.getTile(2).render(s, (int) XX, (int) YY, c);
+					Tile.getTile(bodyTile).render(s, (int) XX, (int) YY, c);
 				}
 				Neck = true;
 			}

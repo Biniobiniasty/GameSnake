@@ -11,6 +11,12 @@ public class Map {
 
 	public static Tile[][] tiles;
 	public static int counterArtefact;
+	public static int counterArtefact1;
+	public static int counterArtefact2;
+	public static int counterArtefact3;
+	public static int counterArtefact4;
+	public static int counterArtefact5;
+	public static int counterArtefact6;
 
 	public Map(int width, int height) {
 		this.WIDTH = width;
@@ -19,27 +25,33 @@ public class Map {
 		clear(6);
 		addbackground();
 		counterArtefact = 0;
+		counterArtefact1 = 0;
+		counterArtefact2 = 0;
+		counterArtefact3 = 0;
+		counterArtefact4 = 0;
+		counterArtefact5 = 0;
+		counterArtefact6 = 0;
 	}
 
-	public void addbackground()
-	{
+	public void addbackground() {
 		for (int y = 0; y < HEIGHT; y++)
 			for (int x = 0; x < WIDTH; x++)
-				if (!(x == 0 || y == 0 || x == HEIGHT - 1 || y == WIDTH - 1))
-				{
+				if (!(x == 0 || y == 0 || x == HEIGHT - 1 || y == WIDTH - 1)) {
 					Random r = new Random();
 					int los = r.nextInt(100);
 
-					if(los < 10)
+					if (los < 10)
 						tiles[x][y] = Tile.getTile(3);
-					else if(los < 20)
+					else if (los < 20)
 						tiles[x][y] = Tile.getTile(4);
 					else if (los < 30)
 						tiles[x][y] = Tile.getTile(5);
 					else
 						tiles[x][y] = Tile.getTile(6); // Black
 				}
+
 	}
+
 	public void clear(int ID) {
 		for (int y = 0; y < HEIGHT; y++)
 			for (int x = 0; x < WIDTH; x++)
@@ -59,14 +71,91 @@ public class Map {
 	public void update() {
 		Random r = new Random();
 		int los = r.nextInt(100);
+
+		// Artefakt1
 		if (los == 5) {
-			if (counterArtefact < 3) {
+			if (counterArtefact < 16) {
 				int x = r.nextInt(WIDTH - 2) + 1;
 				int y = r.nextInt(HEIGHT - 2) + 1;
 				tiles[x][y] = Tile.getTile(7);
 				counterArtefact++;
 			}
 		}
+
+		// Artefakt2
+
+		if (los == 18) {
+			if (counterArtefact1 < 7) {
+				int x = r.nextInt(WIDTH - 2) + 1;
+				int y = r.nextInt(HEIGHT - 2) + 1;
+				tiles[x][y] = Tile.getTile(8);
+				counterArtefact1++;
+			}
+		}
+
+		// Artefakt3
+
+		if (los == 52) {
+			if (counterArtefact2 < 4) {
+				int x = r.nextInt(WIDTH - 2) + 1;
+				int y = r.nextInt(HEIGHT - 2) + 1;
+				tiles[x][y] = Tile.getTile(9);
+				counterArtefact2++;
+			}
+		}
+
+//		// Artefakt4
+
+		if (los == 80) {
+			if (counterArtefact3 < 1) {
+				if (r.nextInt(50) == 8) {
+					int x = r.nextInt(WIDTH - 2) + 1;
+					int y = r.nextInt(HEIGHT - 2) + 1;
+					tiles[x][y] = Tile.getTile(10);
+					counterArtefact3++;
+				}
+			}
+		}
+
+//		// Artefakt5
+
+		if (los == 92) {
+			if (counterArtefact4 < 1) {
+				if (r.nextInt(50) == 12) {
+					int x = r.nextInt(WIDTH - 2) + 1;
+					int y = r.nextInt(HEIGHT - 2) + 1;
+					tiles[x][y] = Tile.getTile(11);
+					counterArtefact4++;
+				}
+			}
+		}
+
+//		// Artefakt6
+
+		if (los == 82) {
+			if (counterArtefact5 < 2) {
+				if (r.nextInt(30) == 12) {
+					int x = r.nextInt(WIDTH - 2) + 1;
+					int y = r.nextInt(HEIGHT - 2) + 1;
+					tiles[x][y] = Tile.getTile(12);
+					counterArtefact5++;
+				}
+			}
+		}
+
+//		// Artefakt7
+
+		if (los == 77) {
+			if (counterArtefact6 < 2) {
+				if (r.nextInt(30) == 15) {
+					int x = r.nextInt(WIDTH - 2) + 1;
+					int y = r.nextInt(HEIGHT - 2) + 1;
+					tiles[x][y] = Tile.getTile(14);
+					counterArtefact6++;
+				}
+			}
+		}
+
 	}
 
 }

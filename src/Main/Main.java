@@ -1,12 +1,14 @@
 package Main;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -16,16 +18,24 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.Color;
+import javax.swing.DropMode;
 
 public class Main {
 
 	public static int WIDTH, HEIGHT;
+	public static String nick;
 
 	private JFrame frmSnake;
+	private JTextField textField;
+	public static JTextPane textPane = new JTextPane();
+
+	public static File katalog = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 
 	/**
 	 * Launch the application.
@@ -45,9 +55,12 @@ public class Main {
 
 	/**
 	 * Create the application.
+	 * @throws FileNotFoundException 
 	 */
-	public Main() {
+	public Main() throws FileNotFoundException {
 		initialize();
+		
+		Main.textPane.setText(Files.Load(katalog.toString()));
 	}
 
 	/**
@@ -57,7 +70,7 @@ public class Main {
 		frmSnake = new JFrame();
 		frmSnake.setTitle("Snake");
 		frmSnake.getContentPane().setBackground(Color.BLACK);
-		frmSnake.setBounds(100, 100, 278, 145);
+		frmSnake.setBounds(100, 100, 603, 439);
 		frmSnake.setResizable(false);
 		frmSnake.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -65,6 +78,8 @@ public class Main {
 		lblNewLabel.setForeground(Color.RED);
 
 		JComboBox comboBox = new JComboBox();
+		textPane.setEnabled(false);
+		textPane.setFont(new Font("Tahoma", Font.BOLD, 14));
 		comboBox.setEnabled(false);
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Full screen");
 		chckbxNewCheckBox.setSelected(true);
@@ -76,6 +91,14 @@ public class Main {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				if (textField.getText().length() <= 0) {
+					JOptionPane.showMessageDialog(null, "You have to enter your nick :)", "Warning",
+							JOptionPane.INFORMATION_MESSAGE);
+
+					return;
+				}
+
+				nick = textField.getText();
 				// Format (16:9)
 
 				int WordSize = 20;
@@ -99,18 +122,18 @@ public class Main {
 					Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 					double Sc_width = screenSize.getWidth();
 					double Sc_height = screenSize.getHeight();
-					
+
 //					GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 //					int width = gd.getDisplayMode().getWidth();
 //					int height = gd.getDisplayMode().getHeight();
 //					
-					Main.HEIGHT = (int)Sc_height;
-					Main.WIDTH = (int)Sc_width;
+					Main.HEIGHT = (int) Sc_height;
+					Main.WIDTH = (int) Sc_width;
 
 					System.out.println(Main.HEIGHT + " - " + Main.WIDTH);
-					
+
 					Game game = new Game(Main.WIDTH, Main.HEIGHT, 16, 9, factor, WordSize);
-					
+
 				} else {
 					if (comboBox.getSelectedIndex() == 0) {
 						Main.HEIGHT = 768;
@@ -146,42 +169,58 @@ public class Main {
 
 		JLabel lblNewLabel_1 = new JLabel("Size map");
 		lblNewLabel_1.setForeground(Color.RED);
+
+		textField = new JTextField();
+		textField.setColumns(10);
+
+		JLabel lblNewLabel_1_1 = new JLabel("Nick:");
+		lblNewLabel_1_1.setForeground(Color.RED);
+
+		textPane.setForeground(new Color(240, 230, 140));
+		textPane.setBackground(new Color(0, 0, 128));
 		GroupLayout groupLayout = new GroupLayout(frmSnake.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addContainerGap()
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING,
-								groupLayout.createSequentialGroup().addComponent(lblNewLabel).addGap(76)
-										.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 70,
-												GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(579, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-								.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(Alignment.LEADING,
-										groupLayout.createSequentialGroup().addComponent(chckbxNewCheckBox)
-												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-														Short.MAX_VALUE)
-												.addComponent(btnNewButton))
-								.addGroup(Alignment.LEADING,
-										groupLayout.createSequentialGroup()
-												.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 112,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(comboBox1,
-														GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)))
-								.addContainerGap(543, Short.MAX_VALUE)))));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addContainerGap()
-				.addGroup(groupLayout
-						.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel).addComponent(lblNewLabel_1))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(18).addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(chckbxNewCheckBox)
-						.addComponent(btnNewButton))
-				.addGap(367)));
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+				groupLayout.createSequentialGroup().addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
+										.createParallelGroup(Alignment.LEADING).addComponent(chckbxNewCheckBox)
+										.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 112,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblNewLabel))
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 70,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, 113,
+																GroupLayout.PREFERRED_SIZE))))
+										.addGap(18)
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+												.addComponent(lblNewLabel_1_1, Alignment.LEADING,
+														GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+												.addComponent(textField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+														314, Short.MAX_VALUE)
+												.addComponent(btnNewButton))))
+						.addContainerGap()));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel)
+								.addComponent(lblNewLabel_1).addComponent(lblNewLabel_1_1))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(chckbxNewCheckBox)
+								.addComponent(btnNewButton))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE).addContainerGap()));
 		frmSnake.getContentPane().setLayout(groupLayout);
 	}
 }

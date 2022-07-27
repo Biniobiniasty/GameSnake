@@ -18,6 +18,14 @@ public class Tile {
 		if(id == 5)return new Background3();
 		if(id == 6)return new Background_black();
 		if(id == 7)return new Artefakt1();
+		if(id == 8)return new Artefakt2();
+		if(id == 9)return new Artefakt3();
+		if(id == 10)return new Artefakt4();
+		if(id == 11)return new Artefakt5();
+		if(id == 12)return new Artefakt6();
+		if(id == 13)return new Body2();
+		if(id == 14)return new Artefakt7();
+		if(id == 15)return new Body3();
 		return new Head();
 	}
 	
