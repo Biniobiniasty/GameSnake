@@ -1,4 +1,3 @@
-<center>
 <table><tr><td>
 <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/3.png" height="350" width="450"/>
   </td><td style="text-align: center">
@@ -29,9 +28,7 @@
   <br /><br />
   SCREENSHOOTS:
   <br /><br />
-  
-  
-     <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/5.png" height="500" width="600"/>
+      <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/5.png" height="500" width="600"/>
      <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/2.png" height="500" width="600"/>
      <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/1.png" height="500" width="600"/>
-  </center>
+
