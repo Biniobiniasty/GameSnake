@@ -25,6 +25,7 @@
       <li> Size map options from 20x20 to 100x100 </li>
       <li> In abnormal frequency mode appears a lot of artefacts in one time.</li>
       <li> In abnormal artefact mode appears a lot of artefacts on map.</li>
+      <li> We have to enter nick. The results are recorded in the table from the best. </li>
     </ul>
   </td></tr>
   </table>
