@@ -133,7 +133,7 @@ public class Map {
 //		// Artefakt6
 
 		if (los == 82) {
-			if (counterArtefact5 < 2) {
+			if (counterArtefact5 < 4) {
 				if (r.nextInt(30) == 12) {
 					int x = r.nextInt(WIDTH - 2) + 1;
 					int y = r.nextInt(HEIGHT - 2) + 1;
@@ -146,8 +146,8 @@ public class Map {
 //		// Artefakt7
 
 		if (los == 77) {
-			if (counterArtefact6 < 2) {
-				if (r.nextInt(30) == 15) {
+			if (counterArtefact6 < 3) {
+				if (r.nextInt(10) == 5) {
 					int x = r.nextInt(WIDTH - 2) + 1;
 					int y = r.nextInt(HEIGHT - 2) + 1;
 					tiles[x][y] = Tile.getTile(14);

@@ -342,6 +342,15 @@ public class Snake {
 			// Dzialanie Artefakt 6
 			if(bodyAndScore)
 			{
+				
+				// Niwelowanie dzialania Artefaktu 7 jezeli jest pod wplywem
+				if(multiScore == 3)
+					this.speed += 25;
+				
+				// Niwelowanie roznic jezeli wezmie ten sam Artefakt
+				if(multiScore == 2)
+					this.speed += 20;
+				
 				multiScore = 2;
 				bodyTile = 13;
 				this.speed -= 20;
@@ -365,6 +374,14 @@ public class Snake {
 			// Dzialanie Artefakt 7
 			if(bodyAndScoreTriple)
 			{
+				// Niwelowanie dzialania Artefaktu 6 jezeli jest pod wplywem
+				if(multiScore == 2)
+					this.speed += 20;
+				
+				// Niwelowanie roznic jezeli wezmie ten sam Artefakt
+				if(multiScore == 3)
+					this.speed += 25;
+				
 				multiScore = 3;
 				bodyTile = 15;
 				this.speed -= 25;
