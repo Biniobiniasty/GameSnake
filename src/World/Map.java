@@ -15,6 +15,8 @@ public class Map {
 	public static int counterArtefact2;
 	public static int counterArtefact3;
 	public static int counterArtefact4;
+	public static int counterArtefact5;
+	public static int counterArtefact6;
 
 	public Map(int width, int height) {
 		this.WIDTH = width;
@@ -27,6 +29,8 @@ public class Map {
 		counterArtefact2 = 0;
 		counterArtefact3 = 0;
 		counterArtefact4 = 0;
+		counterArtefact5 = 0;
+		counterArtefact6 = 0;
 	}
 
 	public void addbackground() {
@@ -122,6 +126,32 @@ public class Map {
 					int y = r.nextInt(HEIGHT - 2) + 1;
 					tiles[x][y] = Tile.getTile(11);
 					counterArtefact4++;
+				}
+			}
+		}
+
+//		// Artefakt6
+
+		if (los == 82) {
+			if (counterArtefact5 < 2) {
+				if (r.nextInt(30) == 12) {
+					int x = r.nextInt(WIDTH - 2) + 1;
+					int y = r.nextInt(HEIGHT - 2) + 1;
+					tiles[x][y] = Tile.getTile(12);
+					counterArtefact5++;
+				}
+			}
+		}
+
+//		// Artefakt7
+
+		if (los == 77) {
+			if (counterArtefact6 < 2) {
+				if (r.nextInt(30) == 15) {
+					int x = r.nextInt(WIDTH - 2) + 1;
+					int y = r.nextInt(HEIGHT - 2) + 1;
+					tiles[x][y] = Tile.getTile(14);
+					counterArtefact6++;
 				}
 			}
 		}
