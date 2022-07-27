@@ -11,6 +11,7 @@
   <li><b>white wheel</b> - (rare)[+4 length snake] and [200 pkt] [+++speed]</li>
   <li><b>red x</b> - [++speed] [multiplier x2 scores] duration 17s</li>
   <li><b>blue symbol</b> - [++speed] [multiplier x3 scores] duration 12s</li>
+  <li><b>spiral symbol</b> - (rare)[-speed] [clear map] [500 pkt]</li>
   </ul>
     <br />
   <b>[space]</b> - Speed
