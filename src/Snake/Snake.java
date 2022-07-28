@@ -39,7 +39,8 @@ public class Snake {
 		}
 	}
 
-	private int speed, Tspeed;
+	public static int speed;
+	private int Tspeed;
 	private int centerX, centerY;
 
 	private int kierunekX, kierunekY;
@@ -56,8 +57,23 @@ public class Snake {
 	private long TimeNOW, TimeLAST;
 
 	public Snake() {
+		
+
+		EnemySnake.speed = 2000;
+		Snake.speed = 400;
+		
+		if(Main.comboBox_1.getSelectedIndex() == 1)
+		{
+			EnemySnake.speed = 400;
+			Snake.speed = 200;
+		}
+		if(Main.comboBox_1.getSelectedIndex() == 2)
+		{
+			EnemySnake.speed = 100;
+			Snake.speed = 100;
+		}
+		
 		enemySpeed = 5000;
-		speed = 200; // to less value for faster
 		Tspeed = 200;
 		TimeNOW = System.nanoTime();
 		TimeLAST = TimeNOW;

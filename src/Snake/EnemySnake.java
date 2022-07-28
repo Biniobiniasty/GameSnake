@@ -44,7 +44,6 @@ public class EnemySnake {
 		for (int x = 0; x < length; x++)
 			abdomen.add(new vector(HeadPosX, HeadPosY - 1 - x));
 
-		speed = 200;
 		TimeNOW = System.nanoTime();
 		TimeLAST = TimeNOW;
 

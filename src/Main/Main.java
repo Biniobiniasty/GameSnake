@@ -1,6 +1,7 @@
 package Main;
 
 import java.awt.Color;
+import Snake.Snake;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -24,7 +25,8 @@ import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.DropMode;
+
+import Snake.EnemySnake;
 
 public class Main {
 
@@ -32,11 +34,11 @@ public class Main {
 	public static String nick;
 
 	private JFrame frmSnake;
-	private JTextField textField;
+	private JTextField txtNick;
 	public static JTextPane textPane = new JTextPane();
 	public static JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Abnormal artefact amount");
 	public static JCheckBox chckbxNewCheckBox_1_1 = new JCheckBox("Amnormal artefacts frequency");
-
+	public static JComboBox comboBox_1 = new JComboBox();
 
 
 	public static File katalog = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
@@ -74,7 +76,7 @@ public class Main {
 		frmSnake = new JFrame();
 		frmSnake.setTitle("Snake");
 		frmSnake.getContentPane().setBackground(Color.BLACK);
-		frmSnake.setBounds(100, 100, 603, 439);
+		frmSnake.setBounds(100, 100, 603, 480);
 		frmSnake.setResizable(false);
 		frmSnake.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -94,15 +96,16 @@ public class Main {
 		JButton btnNewButton = new JButton("Play");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				if (textField.getText().length() <= 0) {
+				
+				System.out.println(comboBox_1.getSelectedIndex());
+				if (txtNick.getText().length() <= 0) {
 					JOptionPane.showMessageDialog(null, "You have to enter your nick :)", "Warning",
 							JOptionPane.INFORMATION_MESSAGE);
 
 					return;
 				}
 
-				nick = textField.getText();
+				nick = txtNick.getText();
 				// Format (16:9)
 
 				int WordSize = 20;
@@ -169,13 +172,14 @@ public class Main {
 
 		comboBox1.setModel(
 				new DefaultComboBoxModel(new String[] { "20x20", "30x30", "40x40", "50x50", "75x75", "100x100" }));
-		comboBox1.setSelectedIndex(1);
+		comboBox1.setSelectedIndex(3);
 
 		JLabel lblNewLabel_1 = new JLabel("Size map");
 		lblNewLabel_1.setForeground(Color.RED);
 
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtNick = new JTextField();
+		txtNick.setText("Nick");
+		txtNick.setColumns(10);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Nick:");
 		lblNewLabel_1_1.setForeground(Color.RED);
@@ -188,19 +192,23 @@ public class Main {
 		
 		chckbxNewCheckBox_1_1.setForeground(Color.CYAN);
 		chckbxNewCheckBox_1_1.setBackground(Color.BLACK);
+		
+
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Easy", "Medium", "Hard"}));
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("Level:");
+		lblNewLabel_1_1_1.setForeground(Color.RED);
 		GroupLayout groupLayout = new GroupLayout(frmSnake.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(chckbxNewCheckBox_1_1)
+						.addComponent(textPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(chckbxNewCheckBox)
-									.addGap(18)
-									.addComponent(chckbxNewCheckBox_1))
+								.addComponent(chckbxNewCheckBox)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
@@ -208,15 +216,18 @@ public class Main {
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))))
-							.addGap(18)
+										.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(chckbxNewCheckBox_1))
+							.addGap(36)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblNewLabel_1_1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(chckbxNewCheckBox_1_1)
-									.addPreferredGap(ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-									.addComponent(btnNewButton)))))
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+									.addComponent(btnNewButton))
+								.addComponent(lblNewLabel_1_1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtNick, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -231,15 +242,24 @@ public class Main {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(chckbxNewCheckBox)
-						.addComponent(btnNewButton)
-						.addComponent(chckbxNewCheckBox_1)
-						.addComponent(chckbxNewCheckBox_1_1))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+						.addComponent(txtNick, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(btnNewButton))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(chckbxNewCheckBox)
+								.addComponent(lblNewLabel_1_1_1))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(chckbxNewCheckBox_1)
+								.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(chckbxNewCheckBox_1_1)
+					.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+					.addComponent(textPane, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		frmSnake.getContentPane().setLayout(groupLayout);
