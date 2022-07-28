@@ -28,6 +28,8 @@ public class Tile {
 		if(id == 15)return new Body3();
 		if(id == 16)return new Artefakt8();
 		if(id == 17)return new Head2();
+		if(id == 18)return new EnemyBody();
+		if(id == 19)return new EnemyHead();
 		
 		return new Head();
 	}

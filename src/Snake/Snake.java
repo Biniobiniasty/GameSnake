@@ -20,6 +20,8 @@ import World.Artefakt5;
 import World.Artefakt6;
 import World.Artefakt7;
 import World.Artefakt8;
+import World.EnemyBody;
+import World.EnemyHead;
 import World.Map;
 import World.Tile;
 
@@ -47,11 +49,14 @@ public class Snake {
 	private boolean MaxSpeed;
 	private int bodyTile, multiScore, headTile;
 	private long TimebodyAndScore;
+	private EnemySnake enemySnake;
+	private int enemySpeed;
 
 	private List<vector> abdomen;
 	private long TimeNOW, TimeLAST;
 
 	public Snake() {
+		enemySpeed = 5000;
 		speed = 200; // to less value for faster
 		Tspeed = 200;
 		TimeNOW = System.nanoTime();
@@ -73,6 +78,7 @@ public class Snake {
 		bodyTile = 2;
 		multiScore = 1;
 		headTile = 17;
+		enemySnake = new EnemySnake();
 	}
 
 	public void Lose() {
@@ -91,7 +97,6 @@ public class Snake {
 					liczba.append(scor.toCharArray()[x]);
 				else
 					break;
-			System.out.println(liczba);
 			if (liczba.length() <= 0)
 				continue;
 			integerScore[index] = Integer.parseInt(liczba.toString());
@@ -171,8 +176,28 @@ public class Snake {
 
 	int anime = 16;
 	int animeHead = 1;
+	boolean ochrona = false;
+	int Limit2level = 5000;
 
 	public void update() {
+
+		// Two enemy snake
+
+		if (Game.score > Limit2level) {
+			enemySnake.update();
+			if(Keyboard.getKey(KeyEvent.VK_B))
+			{
+				bodyTile = 0;
+				ochrona = true;
+			}
+			else
+			{
+				if(ochrona)
+					bodyTile = 2;
+				ochrona = false;
+			}
+		}
+
 		TimeNOW = System.nanoTime();
 
 		if (TimeNOW - TimeLAST > 1000000 * speed) {
@@ -180,6 +205,18 @@ public class Snake {
 			animeHead = 0;
 			TimeLAST = TimeNOW;
 			List<vector> refresh = new ArrayList<>();
+
+			// Two enemy snake
+			if (Game.score > Limit2level) {
+				if(ochrona)
+				{
+					Game.score -= 3;
+				}
+				if (enemySpeed < Game.score) {
+					EnemySnake.speed--;
+					enemySpeed += 500;
+				}
+			}
 
 			// Go ahead
 			boolean Head = false;
@@ -203,6 +240,20 @@ public class Snake {
 					posY = refresh.get(0).y;
 					lastX = x.x;
 					lastY = x.y;
+
+					// Lose
+					// Crash with enemy
+					if ((Map.tiles[posX][posY] instanceof EnemyHead) || (Map.tiles[posX][posY] instanceof EnemyBody)) {
+
+						if (Game.score > Limit2level) {
+							
+							if (!Keyboard.getKey(KeyEvent.VK_B)) 
+								Lose();
+							
+						} else {
+							Lose();
+						}
+					}
 
 					// Check artefact1
 					addlength = false;
@@ -294,6 +345,8 @@ public class Snake {
 							speed = 50;
 					}
 
+					// Lose:
+
 					// Check colide band
 					if (posX < 1 || posY < 1 || posX > Game.WordSize - 2 || posY > Game.WordSize - 2) {
 						Lose();
@@ -305,9 +358,9 @@ public class Snake {
 
 				// Bit yourself
 				if ((posX == x.x) && (posY == x.y)) {
-
 					Lose();
 				}
+
 			}
 
 			// Dzialanie Artefakt1 i Artefakt2
@@ -430,9 +483,9 @@ public class Snake {
 			}
 			MaxSpeed = true;
 		}
-		if(Game.score >= 5000)
+		if (Game.score >= 5000)
 			headTile = 0;
-		
+
 	}
 
 	long animeTimeNow = System.nanoTime();

@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import Graphics.Screen;
 import Input.Keyboard;
 import Main.Main;
+import World.Tile;
 
 public class Camera {
 
@@ -71,7 +72,7 @@ public class Camera {
 	
 	public void render(Screen s)
 	{
-		
+		Tile.getTile(0).render(s, 10, 10, null);
 	}
 	
 }
