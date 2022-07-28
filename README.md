@@ -46,7 +46,7 @@
   <tr><td>
       <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/10.png" height="400" width="600"/>
     </td><td>
-     <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/3.png" height="400" width="600"/>
+     <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/4.png" height="400" width="600"/>
     </td></tr>
   <tr><td>
       <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/5.png" height="400" width="600"/>
