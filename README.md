@@ -17,6 +17,15 @@
   <b>[space]</b> - Speed
   </td></tr>
   <tr><td>
+    <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/9.png" height="350" width="450"/>
+    </td><td>
+    <b><i>ENEMIES</i></b>
+    <ul>
+      <li> At the start we have one enemy snake.</li>
+      <li>After exceeding 5,000 points, we have two enemy snakes that are getting faster and faster.</li>
+    </ul>
+    </td></tr>
+  <tr><td>
   <img src="https://github.com/Biniobiniasty/GameSnake/blob/Snake/ScreenShoots/8.png" height="350" width="450"/>
   </td><td style="text-align: center">
   <b><i>SETTINGS:</i></b><br /><br />
