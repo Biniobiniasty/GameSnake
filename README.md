@@ -22,7 +22,8 @@
     <b><i>ENEMIES</i></b>
     <ul>
       <li> At the start we have one enemy snake.</li>
-      <li>After exceeding 5,000 points, we have two enemy snakes that are getting faster and faster.</li>
+      <li> After exceeding 5,000 points, we have two enemy snakes that are getting faster and faster.</li>
+      <li> Above 5000 points, you can press the [B] key, and snake will be protected from enemies.You lose points in this mode.</li>
     </ul>
     </td></tr>
   <tr><td>
